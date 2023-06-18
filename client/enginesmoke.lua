@@ -1,11 +1,11 @@
-local damageMultip = 6.0 -- Damage default kat sayısı
+local damageMultip = 6.0 -- Damage default multiples
 local particleDict = "scr_gr_def" -- Particle dictionary
 local particleName = "scr_gr_sw_engine_smoke" -- Particle name
-local boneName = "engine" -- Motor bölgesi
-local firstThreshold = 650.0 -- Motorun az tütmeye başlayacağı ilk eşik değeri
-local secondThreshold = 350.0 -- Motorun çok tütmeye başlayacağı ikinci eşik değeri
-local firstDelay = 20000 -- Motor az tütmeye başlayınca 20 saniyede bir motor açılıp kapanması için gereken süre, 20 saniyede bir motor kapanıp açılacak
-local secondDelay = 10000 -- Motor çok tütmeye başlayınca 10 saniyede bir motor açılıp kapanması için gereken süre, 10 saniyede bir motor kapanıp açılacak
+local boneName = "engine" -- engine area
+local firstThreshold = 650.0 -- The first threshold value at which the engine will start to smoke low
+local secondThreshold = 350.0 -- Second threshold value at which the engine will start to smoke a lot
+local firstDelay = 20000 -- When the engine starts to smoke less, the time required for the engine to turn on and off every 20 seconds, the engine will turn off and on every 20 seconds.
+local secondDelay = 10000 -- When the engine starts to smoke a lot, the time required for the engine to turn on and off every 10 seconds, the engine will turn off and on every 10 seconds.
 local isStarted = false
 local fxIds = {}
 
@@ -171,7 +171,7 @@ CreateThread(function()
 				if GetVehicleEngineHealth(veh) >= firstThreshold and isStarted and #fxIds == 2 then
 					isStarted = false
 					for i = 1, #fxIds do
-						StopParticleFxLooped(fxIds[i], 0)
+					 StopParticleFxLooped(fxIds[i], 0)
 					end
 					fxIds = {}
 				end

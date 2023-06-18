@@ -48,11 +48,6 @@ local function isPedDrivingAVehicle()
 end
 
 local function fscale(inputValue, originalMin, originalMax, newBegin, newEnd, curve)
-	local OriginalRange = 0.0
-	local NewRange = 0.0
-	local zeroRefCurVal = 0.0
-	local normalizedCurVal = 0.0
-	local rangedValue = 0.0
 	local invFlag = 0
 
 	if (curve > 10.0) then curve = 10.0 end
@@ -210,21 +205,18 @@ CreateThread(function()
 			vehicle = GetVehiclePedIsIn(ped, false)
 			vehicleClass = GetVehicleClass(vehicle)
 			healthEngineCurrent = GetVehicleEngineHealth(vehicle)
-			if healthEngineCurrent == 1000 then healthEngineLast = 1000.0 end
+			 if healthEngineCurrent == 1000 then healthEngineLast = 1000.0 end
 			healthEngineNew = healthEngineCurrent
 			healthEngineDelta = healthEngineLast - healthEngineCurrent
 			healthEngineDeltaScaled = healthEngineDelta * Config.damageFactorEngine * Config.classDamageMultiplier[vehicleClass]
-
 			healthBodyCurrent = GetVehicleBodyHealth(vehicle)
-			if healthBodyCurrent == 1000 then healthBodyLast = 1000.0 end
+			 if healthBodyCurrent == 1000 then healthBodyLast = 1000.0 end
 			healthBodyNew = healthBodyCurrent
 			healthBodyDelta = healthBodyLast - healthBodyCurrent
 			healthBodyDeltaScaled = healthBodyDelta * Config.damageFactorBody * Config.classDamageMultiplier[vehicleClass]
 
 			healthPetrolTankCurrent = GetVehiclePetrolTankHealth(vehicle)
 			if Config.compatibilityMode and healthPetrolTankCurrent < 1 then
-				--	SetVehiclePetrolTankHealth(vehicle, healthPetrolTankLast)
-				--	healthPetrolTankCurrent = healthPetrolTankLast
 				healthPetrolTankLast = healthPetrolTankCurrent
 			end
 			if healthPetrolTankCurrent == 1000 then healthPetrolTankLast = 1000.0 end
@@ -244,7 +236,6 @@ CreateThread(function()
 			if vehicle ~= lastVehicle then
 				pedInSameVehicleLast = false
 			end
-
 
 			if pedInSameVehicleLast == true then
 				-- Damage happened while in the car = can be multiplied
